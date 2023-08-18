@@ -1,4 +1,0 @@
-E:/ToyPrograms/GL/Self-Organization-Tree-Reproduction/Self-Organization-Tree-Reproduction/cmake-build-debug32/CMakeFiles/Self-Organization-Tree.dir
-E:/ToyPrograms/GL/Self-Organization-Tree-Reproduction/Self-Organization-Tree-Reproduction/cmake-build-debug32/CMakeFiles/edit_cache.dir
-E:/ToyPrograms/GL/Self-Organization-Tree-Reproduction/Self-Organization-Tree-Reproduction/cmake-build-debug32/CMakeFiles/rebuild_cache.dir
-E:/ToyPrograms/GL/Self-Organization-Tree-Reproduction/Self-Organization-Tree-Reproduction/cmake-build-debug32/CMakeFiles/Self-Organization-Tree_autogen.dir
