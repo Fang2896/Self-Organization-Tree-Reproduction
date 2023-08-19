@@ -13,8 +13,8 @@
 #include <QMouseEvent>
 #include <QElapsedTimer>
 
-#include "Camera.h"
-#include "ResourceManager.h"
+#include "../Managers/Headers/Camera.h"
+#include "../Managers/Headers/ResourceManager.h"
 
 
 class OGLAdapter : public QOpenGLWidget

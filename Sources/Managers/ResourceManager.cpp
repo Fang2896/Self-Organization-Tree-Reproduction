@@ -2,7 +2,7 @@
 // Created by fangl on 2023/7/28.
 //
 
-#include "ResourceManager.h"
+#include "Headers/ResourceManager.h"
 
 // Global variables to store Shaders and Textures
 std::map<QString, ShaderManager> ResourceManager::map_Shaders;

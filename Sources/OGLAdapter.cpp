@@ -7,7 +7,6 @@
 #include "Light.h"
 #include "BasicGeometry.h"
 #include "Model.h"
-#include "stb_image.h"
 
 
 const QVector3D CAMERA_POSITION(0.0f, 0.1f, 3.0f);
@@ -82,17 +81,17 @@ void OGLAdapter::initializeGL() {
 
     // load shader
     ResourceManager::loadShader("light",
-                                ":Resources/Shaders/pureColor.vert",
-                                ":Resources/Shaders/pureColor.frag");
+                                ":/shaders/Shaders/pureColor.vert",
+                                ":/shaders/Shaders/pureColor.frag");
     ResourceManager::loadShader("coordinate",
-                                ":Resources/Shaders/pureColor.vert",
-                                ":Resources/Shaders/pureColor.frag");
+                                ":/shaders/Shaders/pureColor.vert",
+                                ":/shaders/Shaders/pureColor.frag");
     ResourceManager::loadShader("plane",
-                                ":Resources/Shaders/basicGeometry.vert",
-                                ":Resources/Shaders/basicGeometry.frag");
+                                ":/shaders/Shaders/basicGeometry.vert",
+                                ":/shaders/Shaders/basicGeometry.frag");
     ResourceManager::loadShader("my_model",
-                                ":Resources/Shaders/model.vert",
-                                ":Resources/Shaders/model.frag");
+                                ":/shaders/Shaders/model.vert",
+                                ":/shaders/Shaders/model.frag");
 
     ResourceManager::getShader("light").use().setVector3f("objectColor", LIGHT_COLOR);
     ResourceManager::getShader("coordinate").use().setVector3f("objectColor", COORDINATE_COLOR);

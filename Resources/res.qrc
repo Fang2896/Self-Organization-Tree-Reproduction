@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/shaders">
+        <file>Shaders/pureColor.vert</file>
+        <file>Shaders/pureColor.frag</file>
+        <file>Shaders/model.vert</file>
+        <file>Shaders/model.frag</file>
+        <file>Shaders/basicGeometry.vert</file>
+        <file>Shaders/basicGeometry.frag</file>
+    </qresource>
+
+    <qresource prefix="/models">
+        <!--Sample obj file : -->
+        <file>Models/tank/tank.obj</file>
+        <file>Models/tank/tank.mtl</file>
+    </qresource>
+
+
+</RCC>

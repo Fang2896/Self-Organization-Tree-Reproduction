@@ -7,7 +7,7 @@
 
 
 #include <QOpenGLFunctions_4_3_Core>
-#include "ResourceManager.h"
+#include "../../Managers/Headers/ResourceManager.h"
 #include <QVector>
 
 #include <QDebug>

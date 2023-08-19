@@ -2,7 +2,7 @@
 // Created by fangl on 2023/7/28.
 //
 
-#include "ShaderManager.h"
+#include "Headers/ShaderManager.h"
 
 
 void ShaderManager::compile(const QString& vertexSource, const QString& fragmentSource, const QString& geometrySource) {
