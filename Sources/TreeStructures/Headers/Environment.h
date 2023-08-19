@@ -34,18 +34,15 @@ public:
     QRandomGenerator randomGenerator;
     MarkerSet markerSet;
 
-    Environment(const QRandomGenerator &rGenerator, MarkerSet markerSet);
-    BudId getNextBudId();
+    Environment(const QRandomGenerator &rGenerator, MarkerSet markerSet)
+        : randomGenerator(rGenerator), markerSet(std::move(markerSet)) {}
+
+    BudId getNextBudId() {
+        const auto value = nextBudId;
+        nextBudId++;
+        return value;
+    }
 };
-
-Environment::Environment(const QRandomGenerator &rGenerator, MarkerSet markerSet)
-    : randomGenerator(rGenerator), markerSet(std::move(markerSet)) {}
-
-BudId Environment::getNextBudId() {
-    const auto value = nextBudId;
-    nextBudId++;
-    return value;
-}
 
 
 #endif //ENVIRONMENT_H

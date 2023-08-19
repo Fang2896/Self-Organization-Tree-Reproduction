@@ -28,7 +28,7 @@ public:
 
     BasicGeometry();
     ~BasicGeometry();
-    void init(const QVector<float>& data, Data_Type dataType, Draw_Mode mode = Draw_Mode::TRIANGLES);   // position, texture, normal
+    void init(const QVector<float>& data, Data_Type dataType, Draw_Mode mode);   // position, texture, normal
     void draw();
 
     void changeDrawMode(Draw_Mode mode) {

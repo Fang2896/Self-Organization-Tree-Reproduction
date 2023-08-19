@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 project(Self-Organization-Tree)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -57,7 +57,18 @@ add_executable(${PROJECT_NAME}
         Sources/DataStructures/Range.cpp
         Sources/DataStructures/Vector.cpp
         Sources/DataStructures/Headers/Vector.h
-        Sources/DataStructures/Headers/Types.h Sources/TreeStructures/MarkerSet.cpp Sources/TreeStructures/Headers/MarkerSet.h Sources/Utils/BaseAlgorithms.cpp Sources/Utils/Headers/BaseAlgorithms.h Sources/TreeStructures/Headers/Environment.h)
+        Sources/DataStructures/Headers/Types.h
+        Sources/TreeStructures/MarkerSet.cpp
+        Sources/TreeStructures/Headers/MarkerSet.h
+        Sources/Utils/BaseAlgorithms.cpp
+        Sources/Utils/Headers/BaseAlgorithms.h
+        Sources/TreeStructures/Headers/Environment.h
+        Sources/TreeStructures/Metamer.cpp
+        Sources/TreeStructures/Headers/Metamer.h
+        Sources/Objects/TreeSkeleton.cpp
+        Sources/Objects/TreeSkeleton.h
+        Sources/TreeStructures/Tree.cpp
+        Sources/TreeStructures/Headers/Tree.h)
 
 
 target_link_libraries(${PROJECT_NAME}

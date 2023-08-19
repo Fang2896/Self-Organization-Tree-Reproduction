@@ -67,15 +67,14 @@ void OGLAdapter::initializeGL() {
 
     // objects initialize
     light = std::make_unique<BasicGeometry>();
-    light->init(GeometryData::getLightVertices(), Data_Type::ONLY_POSITION);
+    light->init(GeometryData::getLightVertices(), Data_Type::ONLY_POSITION, Draw_Mode::TRIANGLES);
 
     coordinate = std::make_unique<BasicGeometry>();
     coordinate->init(GeometryData::getCoordinateVertices(),
                      Data_Type::ONLY_POSITION, Draw_Mode::LINES);
 
     plane = std::make_unique<BasicGeometry>();
-    plane->init(GeometryData::getPlaneVertices(),
-                     Data_Type::POS_TEX_NOR);
+    plane->init(GeometryData::getPlaneVertices(), Data_Type::POS_TEX_NOR, Draw_Mode::TRIANGLES);
 
     my_model = std::make_unique<Model>();
 

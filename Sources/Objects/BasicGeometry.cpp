@@ -5,7 +5,6 @@
 #include "BasicGeometry.h"
 
 
-/************* Coordinate *************/
 BasicGeometry::BasicGeometry(): numVertex(0), drawMode(Draw_Mode::TRIANGLES) ,VAO(0), VBO(0) {
     core = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_4_3_Core>();
 }
