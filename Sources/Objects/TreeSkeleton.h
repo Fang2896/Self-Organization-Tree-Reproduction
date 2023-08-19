@@ -11,7 +11,7 @@
 #include "BasicGeometry.h"
 
 
-class TreeSkeleton : BasicGeometry
+class TreeSkeleton : public BasicGeometry
 {
 public:
     TreeSkeleton() : BasicGeometry() {}

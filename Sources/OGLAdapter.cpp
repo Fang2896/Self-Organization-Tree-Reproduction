@@ -8,6 +8,11 @@
 #include "BasicGeometry.h"
 #include "Model.h"
 
+#include "MarkerSet.h"
+#include "Metamer.h"
+#include "Tree.h"
+#include "TreeSkeleton.h"
+
 
 const QVector3D CAMERA_POSITION(0.0f, 0.1f, 3.0f);
 
@@ -25,6 +30,9 @@ std::unique_ptr<BasicGeometry> light;
 std::unique_ptr<BasicGeometry> coordinate;
 std::unique_ptr<BasicGeometry> plane;
 std::unique_ptr<Model> my_model;
+
+std::unique_ptr<Tree> my_tree;
+std::unique_ptr<TreeSkeleton> my_treeSkeleton;
 
 
 OGLAdapter::OGLAdapter(QWidget *parent, int width, int height) : QOpenGLWidget(parent) {
@@ -76,6 +84,20 @@ void OGLAdapter::initializeGL() {
     plane = std::make_unique<BasicGeometry>();
     plane->init(GeometryData::getPlaneVertices(), Data_Type::POS_TEX_NOR, Draw_Mode::TRIANGLES);
 
+    /*********** Tree Generator *************/
+    auto seedNow = static_cast<qint32>(QDateTime::currentMSecsSinceEpoch() % 2147483647);
+    QRandomGenerator randomGenerator(seedNow);
+    MarkerSet markerSet(randomGenerator, 2.0f, 10, 1000 * 1000);
+    Environment environment(randomGenerator, markerSet);
+    my_tree = std::make_unique<Tree>(environment, Point{});
+
+    // iteration 10 times first
+    for(int i = 0; i < 10; i++)
+        my_tree->performGrowthIteration();
+
+    my_treeSkeleton = std::make_unique<TreeSkeleton>();
+    my_treeSkeleton->init(my_tree);
+
     my_model = std::make_unique<Model>();
 
     // load shader
@@ -110,7 +132,7 @@ void OGLAdapter::initializeGL() {
     model.scale(0.1f);
     ResourceManager::getShader("light").use().setMatrix4f("model", model);
     model.setToIdentity();
-    model.scale(1000.0f);
+    model.scale(10.0f);
     ResourceManager::getShader("coordinate").use().setMatrix4f("model", model);
     model.setToIdentity();
     model.translate(PLANE_POSITION);
@@ -139,7 +161,9 @@ void OGLAdapter::paintGL() {
     ResourceManager::getShader("light").use();
     light->draw();
     ResourceManager::getShader("coordinate").use();
-    coordinate->draw();
+    // coordinate->draw();
+    my_treeSkeleton->draw();
+
     ResourceManager::getShader("plane").use();
     plane->draw();
 
@@ -258,8 +282,4 @@ void OGLAdapter::handleInput(GLfloat dt) {
     if (keys[Qt::Key_Q])
         camera->handleKeyboard(CAMERA_MOVE::DOWN, dt);
 }
-
-
-
-
 
