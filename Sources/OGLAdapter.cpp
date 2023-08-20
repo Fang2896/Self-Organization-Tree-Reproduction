@@ -4,14 +4,7 @@
 
 #include "OGLAdapter.h"
 
-#include "Light.h"
-#include "BasicGeometry.h"
-#include "Model.h"
 
-#include "MarkerSet.h"
-#include "Metamer.h"
-#include "Tree.h"
-#include "TreeSkeleton.h"
 
 
 const QVector3D CAMERA_POSITION(0.0f, 0.1f, 3.0f);
@@ -19,10 +12,10 @@ const QVector3D CAMERA_POSITION(0.0f, 0.1f, 3.0f);
 const QVector3D LIGHT_POSITION(-3.0f, 2.0f, 2.0f);
 const QVector3D LIGHT_COLOR(1.0f, 1.0f, 1.0f);
 
-const QVector3D COORDINATE_COLOR(1.0f, 1.0f, 0.0f);
-
 const QVector3D PLANE_POSITION(0.0f, -0.01f, 0.0f);
 const QVector3D PLANE_COLOR(0.5f, 0.5f, 0.5f);
+
+const QVector3D TREE_SKELETON_COLOR(1.0f, 1.0f, 0.0f);
 
 
 // objects
@@ -84,40 +77,42 @@ void OGLAdapter::initializeGL() {
     plane = std::make_unique<BasicGeometry>();
     plane->init(GeometryData::getPlaneVertices(), Data_Type::POS_TEX_NOR, Draw_Mode::TRIANGLES);
 
-    /*********** Tree Generator *************/
-    auto seedNow = static_cast<qint32>(QDateTime::currentMSecsSinceEpoch() % 2147483647);
-    QRandomGenerator randomGenerator(seedNow);
-    MarkerSet markerSet(randomGenerator, 2.0f, 10, 1000 * 1000);
-    Environment environment(randomGenerator, markerSet);
-    my_tree = std::make_unique<Tree>(environment, Point{});
+    // model loaded
+    my_model = std::make_unique<Model>();
 
-    // iteration 10 times first
-    for(int i = 0; i < 2; i++)
-        my_tree->performGrowthIteration();
-
-    my_tree->countMetamers();
+    // tree related parameters init
+    seedNow = static_cast<qint32>(QDateTime::currentMSecsSinceEpoch() % 2147483647);
+    randomGenerator = std::make_unique<QRandomGenerator>(seedNow);
+    markerSet = std::make_unique<MarkerSet>(*randomGenerator, 2.0f, 10, 1000 * 1000);
+    environment = std::make_unique<Environment>(*randomGenerator, *markerSet);
+    my_tree = std::make_unique<Tree>(*environment, Point{});
 
     my_treeSkeleton = std::make_unique<TreeSkeleton>();
-    my_treeSkeleton->init(my_tree);
 
-    my_model = std::make_unique<Model>();
+    // iteration n times first
+    for(int i = 0; i < 3; i++)
+        my_tree->performGrowthIteration();
+    my_treeSkeleton->updateVertexData(my_tree);
 
     // load shader
     ResourceManager::loadShader("light",
                                 ":/shaders/Shaders/pureColor.vert",
                                 ":/shaders/Shaders/pureColor.frag");
     ResourceManager::loadShader("coordinate",
-                                ":/shaders/Shaders/pureColor.vert",
-                                ":/shaders/Shaders/pureColor.frag");
+                                ":/shaders/Shaders/coordinate.vert",
+                                ":/shaders/Shaders/coordinate.frag");
     ResourceManager::loadShader("plane",
                                 ":/shaders/Shaders/basicGeometry.vert",
                                 ":/shaders/Shaders/basicGeometry.frag");
+    ResourceManager::loadShader("treeSkeleton",
+                                ":/shaders/Shaders/pureColor.vert",
+                                ":/shaders/Shaders/pureColor.frag");
     ResourceManager::loadShader("my_model",
                                 ":/shaders/Shaders/model.vert",
                                 ":/shaders/Shaders/model.frag");
 
     ResourceManager::getShader("light").use().setVector3f("objectColor", LIGHT_COLOR);
-    ResourceManager::getShader("coordinate").use().setVector3f("objectColor", COORDINATE_COLOR);
+    ResourceManager::getShader("treeSkeleton").use().setVector3f("objectColor", TREE_SKELETON_COLOR);
 
     ResourceManager::getShader("plane").use().setVector3f("lightPos", LIGHT_POSITION);
     ResourceManager::getShader("plane").use().setVector3f("viewPos", camera->position);
@@ -129,17 +124,24 @@ void OGLAdapter::initializeGL() {
     ResourceManager::getShader("my_model").use().setVector3f("light.position", LIGHT_POSITION);
 
     // matrix configuration
+    // light:
     QMatrix4x4 model;
     model.translate(LIGHT_POSITION);
     model.scale(0.1f);
     ResourceManager::getShader("light").use().setMatrix4f("model", model);
+    // coordinate
     model.setToIdentity();
-    model.scale(60.0f);
+    model.scale(10.0f);
     ResourceManager::getShader("coordinate").use().setMatrix4f("model", model);
+    // loaded model
     model.setToIdentity();
     model.translate(PLANE_POSITION);
     model.scale(10.0f);
     ResourceManager::getShader("plane").use().setMatrix4f("model", model);
+    // tree skeleton
+    model.setToIdentity();
+    model.scale(10.0f);
+    ResourceManager::getShader("treeSkeleton").use().setMatrix4f("model", model);
 
     // background setting
     core->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -163,17 +165,18 @@ void OGLAdapter::paintGL() {
     ResourceManager::getShader("light").use();
     light->draw();
     ResourceManager::getShader("coordinate").use();
-    // coordinate->draw();
-    my_treeSkeleton->draw();
-
+    coordinate->draw();
     ResourceManager::getShader("plane").use();
     plane->draw();
+
+    ResourceManager::getShader("treeSkeleton").use();
+    if(my_treeSkeleton != nullptr)
+        my_treeSkeleton->draw();
 
     if(!my_model->empty) {
         ResourceManager::getShader("my_model").use();
         my_model->draw(this->isOpenLighting);
     }
-
 }
 
 void OGLAdapter::updateGL() {
@@ -192,10 +195,12 @@ void OGLAdapter::updateGL() {
     ResourceManager::getShader("coordinate").use().setMatrix4f("projection", projection);
     ResourceManager::getShader("coordinate").use().setMatrix4f("view", view);
 
+    ResourceManager::getShader("treeSkeleton").use().setMatrix4f("projection", projection);
+    ResourceManager::getShader("treeSkeleton").use().setMatrix4f("view", view);
+
     ResourceManager::getShader("plane").use().setMatrix4f("projection", projection);
     ResourceManager::getShader("plane").use().setMatrix4f("view", view);
     ResourceManager::getShader("plane").use().setVector3f("viewPos", camera->position);
-
 
     ResourceManager::getShader("my_model").use().setMatrix4f("projection", projection);
     ResourceManager::getShader("my_model").use().setMatrix4f("view", camera->getViewMatrix());
@@ -204,18 +209,17 @@ void OGLAdapter::updateGL() {
     QMatrix4x4 scaling;
     scaling.scale(modelScaling * 0.1);
     ResourceManager::getShader("my_model").use().setMatrix4f("model", scaling);
-
 }
 
 
 // control functions
-void OGLAdapter::changeObjModel(const QString &fileName) {
+void OGLAdapter::changeObjModel(const QString &fileName) const {
     my_model->newModel = true;
     my_model->init(fileName);
     my_model->empty = false;
 }
 
-void OGLAdapter::clearLoadedModel() {
+void OGLAdapter::clearLoadedModel() const {
     my_model->clearModel();
 
     my_model->newModel = true;
@@ -284,5 +288,24 @@ void OGLAdapter::handleInput(GLfloat dt) {
         camera->handleKeyboard(CAMERA_MOVE::UP, dt);
     if (keys[Qt::Key_Q])
         camera->handleKeyboard(CAMERA_MOVE::DOWN, dt);
+}
+
+
+// Tree
+void OGLAdapter::performTreeGrowth() {
+    my_tree->performGrowthIteration();
+
+    my_treeSkeleton = std::make_unique<TreeSkeleton>();
+    my_treeSkeleton->updateVertexData(my_tree);
+}
+
+void OGLAdapter::resetTreeGrowth() {
+    seedNow = static_cast<qint32>(QDateTime::currentMSecsSinceEpoch() % 2147483647);
+    randomGenerator = std::make_unique<QRandomGenerator>(seedNow);
+    // TODO: markerSet的参数也可以进行控制
+    markerSet = std::make_unique<MarkerSet>(*randomGenerator, 2.0f, 10, 1000 * 1000);
+    environment = std::make_unique<Environment>(*randomGenerator, *markerSet);
+    my_tree = std::make_unique<Tree>(*environment, Point{});
+    my_treeSkeleton = std::make_unique<TreeSkeleton>();
 }
 

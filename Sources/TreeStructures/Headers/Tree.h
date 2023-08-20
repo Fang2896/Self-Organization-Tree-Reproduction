@@ -33,6 +33,7 @@ public:
     BoundingBox getBoundingBox() const;
 
     void performGrowthIteration();
+    void resetGrowth();
 
 private:
     void allocateMarkers(std::unique_ptr<Metamer> &metamer);

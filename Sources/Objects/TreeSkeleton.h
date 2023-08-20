@@ -9,6 +9,7 @@
 #include "Types.h"
 #include "Metamer.h"
 #include "BasicGeometry.h"
+#include "TreeModeler.h"
 
 
 class TreeSkeleton : public BasicGeometry
@@ -17,7 +18,7 @@ public:
     TreeSkeleton() : BasicGeometry() {}
     ~TreeSkeleton() = default;
 
-    void init(std::unique_ptr<Tree> &tree);
+    void updateVertexData(const std::unique_ptr<Tree> &tree);
 
 private:
     QVector<float> vertices;

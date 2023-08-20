@@ -40,7 +40,6 @@ void Model::draw(GLboolean isOpenLighting) {
             }
         }
 
-
         if(newModel) {
             core->glGenVertexArrays(1, &object.VAO);
             core->glBindVertexArray(object.VAO);

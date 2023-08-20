@@ -16,6 +16,15 @@
 #include "Camera.h"
 #include "ResourceManager.h"
 
+#include "Light.h"
+#include "BasicGeometry.h"
+#include "Model.h"
+
+#include "MarkerSet.h"
+#include "Metamer.h"
+#include "Tree.h"
+#include "TreeSkeleton.h"
+
 
 class OGLAdapter : public QOpenGLWidget
 {
@@ -26,8 +35,21 @@ public:
     void handleKeyPressEvent(QKeyEvent *event);
     void handleKeyReleaseEvent(QKeyEvent *event);
 
-    static void changeObjModel(const QString& fileName);
-    static void clearLoadedModel();
+    void changeObjModel(const QString& fileName) const;
+    void clearLoadedModel() const;
+
+    void performTreeGrowth();
+    void resetTreeGrowth();
+
+
+    // Object to Rendering
+    std::unique_ptr<Model> my_model;
+    std::unique_ptr<BasicGeometry> light;
+    std::unique_ptr<BasicGeometry> coordinate;
+    std::unique_ptr<BasicGeometry> plane;
+
+    std::unique_ptr<Tree> my_tree;
+    std::unique_ptr<TreeSkeleton> my_treeSkeleton;
 
     GLboolean keys[1024];
     GLboolean isOpenLighting;
@@ -47,6 +69,12 @@ protected:
 private:
     void handleInput(GLfloat dt);
     void updateGL();
+
+    // Tree Related Parameters:
+    qint32 seedNow;
+    std::unique_ptr<QRandomGenerator> randomGenerator;
+    std::unique_ptr<MarkerSet> markerSet;
+    std::unique_ptr<Environment> environment;
 
     QOpenGLFunctions_4_3_Core *core;
 

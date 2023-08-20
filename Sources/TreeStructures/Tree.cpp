@@ -24,11 +24,13 @@ void Tree::printAllMetamer(std::unique_ptr<Metamer> &metamer) const {
         return;
     if(metamer->axillary) {
         qDebug() << "Axillary BudId: " << metamer->axillaryId;
+        qDebug() << "Axillary Count: " << metamer->axillaryCount;
         printAllMetamer(metamer->axillary);
     }
 
     if(metamer->terminal) {
         qDebug() << "Terminal BudId: " << metamer->terminalId;
+        qDebug() << "Terminal Count: " << metamer->terminalCount;
         printAllMetamer(metamer->terminal);
     }
 }
@@ -54,7 +56,10 @@ void Tree::performGrowthIteration() {
     updateInternodeWidths(root);
     tropismGrowthDirectionWeight *= tropismGrowthDirectionWeightAttenuation;
 
-    qDebug() << "Completed Iteration " << Qt::endl;
+    // 6. Update the Counter in every Metamer
+    this->countMetamers();
+
+    qDebug() << "Completed Iteration ";
 }
 
 void Tree::allocateMarkers(std::unique_ptr<Metamer> &metamer) {
@@ -216,5 +221,9 @@ void Tree::updateInternodeWidths(std::unique_ptr<Metamer> &metamer) {
         total += std::pow(metamer->terminal->width, pipeModelExponent);
     }
     metamer->width = std::pow(total, 1.0f / pipeModelExponent);
+}
+
+void Tree::resetGrowth() {
+    root.reset();
 }
 

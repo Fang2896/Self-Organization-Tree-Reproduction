@@ -2,10 +2,15 @@
     <qresource prefix="/shaders">
         <file>Shaders/pureColor.vert</file>
         <file>Shaders/pureColor.frag</file>
+
         <file>Shaders/model.vert</file>
         <file>Shaders/model.frag</file>
+
         <file>Shaders/basicGeometry.vert</file>
         <file>Shaders/basicGeometry.frag</file>
+
+        <file>Shaders/coordinate.vert</file>
+        <file>Shaders/coordinate.frag</file>
     </qresource>
 
     <qresource prefix="/models">
@@ -16,21 +21,21 @@
     <qresource prefix="/textures">
         <file>Textures/Barks/Bark_0.jpg</file>
         <file>Textures/Barks/Bark_1.jpg</file>
-        <file>Textures/Barks/Bark_2.jpg</file>
-        <file>Textures/Barks/Bark_3.jpg</file>
-        <file>Textures/Barks/Bark_4.jpg</file>
+        <file>Textures/Barks/Bark_2.png</file>
+        <file>Textures/Barks/Bark_3.png</file>
+        <file>Textures/Barks/Bark_4.png</file>
 
-        <file>Textures/Leaves/Leaf_0.jpg</file>
-        <file>Textures/Leaves/Leaf_1.jpg</file>
-        <file>Textures/Leaves/Leaf_2.jpg</file>
-        <file>Textures/Leaves/Leaf_3.jpg</file>
-        <file>Textures/Leaves/Leaf_4.jpg</file>
-        <file>Textures/Leaves/Leaf_5.jpg</file>
-        <file>Textures/Leaves/Leaf_6.jpg</file>
-        <file>Textures/Leaves/Leaf_7.jpg</file>
-        <file>Textures/Leaves/Leaf_8.jpg</file>
-        <file>Textures/Leaves/Leaf_9.jpg</file>
-        <file>Textures/Leaves/Leaf_10.jpg</file>
+        <file>Textures/Leaves/Leaf_0.png</file>
+        <file>Textures/Leaves/Leaf_1.png</file>
+        <file>Textures/Leaves/Leaf_2.png</file>
+        <file>Textures/Leaves/Leaf_3.png</file>
+        <file>Textures/Leaves/Leaf_4.png</file>
+        <file>Textures/Leaves/Leaf_5.png</file>
+        <file>Textures/Leaves/Leaf_6.png</file>
+        <file>Textures/Leaves/Leaf_7.png</file>
+        <file>Textures/Leaves/Leaf_8.png</file>
+        <file>Textures/Leaves/Leaf_9.png</file>
+        <file>Textures/Leaves/Leaf_10.png</file>
     </qresource>
 
 

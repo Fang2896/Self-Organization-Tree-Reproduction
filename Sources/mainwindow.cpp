@@ -22,16 +22,25 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(timer, &QTimer::timeout, this, &MainWindow::updateOGLAdapter);
     timer->start(10);
 
+    // Rendering Mode Change:
     connect(lineModeCheck, &QCheckBox::stateChanged,
             this, &MainWindow::lineModeChangeCheck);
     connect(lightingCheck, &QCheckBox::stateChanged,
             this, &MainWindow::lightingOpenCheck);
+
+    // Loaded Model Related:
     connect(openFileButton, &QPushButton::clicked,
             this, &MainWindow::loadNewModelButtonPush);
     connect(modelScaleDoubleSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged),
             this, &MainWindow::adjustModelScaling);
     connect(clearLoadedModelButton, &QPushButton::clicked,
             this, &MainWindow::clearLoadedModelPush);
+
+    // Tree Growth Related:
+    connect(performGrowthButton, &QPushButton::clicked,
+            this, &MainWindow::performGrowthButtonPush);
+    connect(resetGrowthButton, &QPushButton::clicked,
+            this, &MainWindow::resetTreeGrowthPush);
 
     // set background color
     QPalette pal(this->palette());
@@ -81,7 +90,7 @@ void MainWindow::loadNewModelButtonPush() {
     QString fileName = fileInfo.fileName();
     fileNameLabel->setText(fileName);
 
-    OGLAdapter::changeObjModel(filePath);
+    oglAdapter->changeObjModel(filePath);
 }
 
 void MainWindow::adjustModelScaling(double value) {
@@ -90,8 +99,22 @@ void MainWindow::adjustModelScaling(double value) {
 }
 
 void MainWindow::clearLoadedModelPush() {
-    OGLAdapter::clearLoadedModel();
+    oglAdapter->clearLoadedModel();
     fileNameLabel->setText("Empty Now");
+}
+
+void MainWindow::performGrowthButtonPush() {
+    // TODO: perform growth
+    oglAdapter->performTreeGrowth();
+
+    int count = iterationTimesLabel->text().toInt();
+    count++;
+    iterationTimesLabel->setText(QString::number(count));
+}
+
+void MainWindow::resetTreeGrowthPush() {
+    oglAdapter->resetTreeGrowth();
+    iterationTimesLabel->setText(QString::number(0));
 }
 
 

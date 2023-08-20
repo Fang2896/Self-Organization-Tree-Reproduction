@@ -42,6 +42,11 @@ public:
         nextBudId++;
         return value;
     }
+
+    void resetEnvironment(const QRandomGenerator& rGenerator) {
+        randomGenerator = rGenerator;
+        nextBudId = 1;
+    }
 };
 
 

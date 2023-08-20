@@ -76,6 +76,8 @@ private slots:
     void loadNewModelButtonPush();
     void adjustModelScaling(double value);
     void clearLoadedModelPush();
+    void performGrowthButtonPush();
+    void resetTreeGrowthPush();
 
 };
 
