@@ -29,6 +29,7 @@ public:
     Tree(Environment &env, Point seedlingPosition);
 
     U64 countMetamers() const;
+    void printAllMetamer(std::unique_ptr<Metamer> &metamer) const;
     BoundingBox getBoundingBox() const;
 
     void performGrowthIteration();

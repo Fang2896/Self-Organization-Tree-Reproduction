@@ -19,6 +19,20 @@ U64 Tree::countMetamers() const {
     return root->countMetamers();
 }
 
+void Tree::printAllMetamer(std::unique_ptr<Metamer> &metamer) const {
+    if(!metamer)
+        return;
+    if(metamer->axillary) {
+        qDebug() << "Axillary BudId: " << metamer->axillaryId;
+        printAllMetamer(metamer->axillary);
+    }
+
+    if(metamer->terminal) {
+        qDebug() << "Terminal BudId: " << metamer->terminalId;
+        printAllMetamer(metamer->terminal);
+    }
+}
+
 BoundingBox Tree::getBoundingBox() const {
     return root->getBoundingBox();
 }

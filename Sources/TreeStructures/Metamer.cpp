@@ -21,14 +21,19 @@ float Metamer::getLength() const {
     return begin.distanceToPoint(end);
 }
 
-U64 Metamer::countMetamers() const {
-    U64 count = 1;
-    if (axillary)
-        count += axillary->countMetamers();
-    if (terminal)
-        count += terminal->countMetamers();
+U64 Metamer::countMetamers() {
+    axillaryCount = 0;
+    terminalCount = 0;
 
-    return count;
+    if (axillary) {
+        axillaryCount += axillary->countMetamers();
+    }
+
+    if (terminal) {
+        terminalCount += terminal->countMetamers();
+    }
+
+    return axillaryCount + terminalCount + 1;
 }
 
 BoundingBox Metamer::getBoundingBox() const {

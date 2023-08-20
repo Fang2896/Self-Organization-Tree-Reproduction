@@ -26,9 +26,11 @@ public:
 
     std::unique_ptr<Metamer> axillary;
     BudId axillaryId{};
+    U64 axillaryCount;
 
     std::unique_ptr<Metamer> terminal;
     BudId terminalId{};
+    U64 terminalCount;
 
     float light = 0.0f;
 
@@ -44,7 +46,7 @@ public:
 
     Point getCenter() const;
     float getLength() const;
-    U64 countMetamers() const;
+    U64 countMetamers();
     BoundingBox getBoundingBox() const;
 };
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>723</width>
-    <height>459</height>
+    <width>1231</width>
+    <height>691</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,32 +16,36 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>10</y>
-     <width>161</width>
+     <x>990</x>
+     <y>20</y>
+     <width>221</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
      <family>Arial</family>
-     <pointsize>20</pointsize>
+     <pointsize>15</pointsize>
      <weight>75</weight>
-     <italic>false</italic>
+     <italic>true</italic>
      <bold>true</bold>
+     <underline>true</underline>
      <kerning>true</kerning>
     </font>
    </property>
    <property name="text">
-    <string>Project Title</string>
+    <string>Self-Organization-Tree</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
   <widget class="QCheckBox" name="checkBox">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>70</y>
-     <width>131</width>
+     <x>990</x>
+     <y>60</y>
+     <width>201</width>
      <height>21</height>
     </rect>
    </property>
@@ -60,9 +64,9 @@
   <widget class="Line" name="line">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>990</x>
      <y>50</y>
-     <width>161</width>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -79,9 +83,9 @@
   <widget class="QCheckBox" name="checkBox_2">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>100</y>
-     <width>131</width>
+     <x>990</x>
+     <y>90</y>
+     <width>201</width>
      <height>21</height>
     </rect>
    </property>
@@ -100,9 +104,9 @@
   <widget class="Line" name="line_2">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>120</y>
-     <width>161</width>
+     <x>990</x>
+     <y>110</y>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -119,9 +123,9 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>170</y>
-     <width>161</width>
+     <x>990</x>
+     <y>180</y>
+     <width>211</width>
      <height>21</height>
     </rect>
    </property>
@@ -138,9 +142,9 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>140</y>
-     <width>161</width>
+     <x>990</x>
+     <y>120</y>
+     <width>211</width>
      <height>21</height>
     </rect>
    </property>
@@ -170,9 +174,9 @@
   <widget class="Line" name="line_3">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>240</y>
-     <width>161</width>
+     <x>990</x>
+     <y>230</y>
+     <width>211</width>
      <height>16</height>
     </rect>
    </property>
@@ -189,9 +193,9 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>210</y>
-     <width>41</width>
+     <x>1000</x>
+     <y>150</y>
+     <width>51</width>
      <height>16</height>
     </rect>
    </property>
@@ -208,9 +212,9 @@
   <widget class="QDoubleSpinBox" name="doubleSpinBox">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>210</y>
-     <width>121</width>
+     <x>1050</x>
+     <y>150</y>
+     <width>141</width>
      <height>22</height>
     </rect>
    </property>
@@ -233,15 +237,15 @@
     <double>0.002500000000000</double>
    </property>
    <property name="value">
-    <double>0.001000000000000</double>
+    <double>0.600000000000000</double>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>430</y>
-     <width>161</width>
+     <x>990</x>
+     <y>210</y>
+     <width>211</width>
      <height>23</height>
     </rect>
    </property>
@@ -253,6 +257,156 @@
    </property>
    <property name="text">
     <string>Clear Loaded Model</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_3">
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>280</y>
+     <width>211</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Perform Tree Growth</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>250</y>
+     <width>181</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>13</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string>Tree Growth Control</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>350</y>
+     <width>121</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Iteration Times:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>1150</x>
+     <y>350</y>
+     <width>31</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_4">
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>310</y>
+     <width>211</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Reset Tree Growth</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line_4">
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>370</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>1000</x>
+     <y>380</y>
+     <width>211</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>13</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+     <kerning>true</kerning>
+    </font>
+   </property>
+   <property name="text">
+    <string>Tree Growth Parameters</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

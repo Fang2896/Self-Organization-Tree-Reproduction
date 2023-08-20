@@ -5,14 +5,14 @@
 #include "mainwindow.h"
 #include "Forms/ui_MainWindow.h"
 
-const int OGL_WIDTH = 800;
-const int OGL_HEIGHT = 600;
+const int OGL_DEFAULT_WIDTH = 800;
+const int OGL_DEFAULT_HEIGHT = 600;
 
 
 MainWindow::MainWindow(QWidget *parent) :
         QWidget(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    oglAdapter = new OGLAdapter(this, OGL_WIDTH, OGL_HEIGHT);
+    oglAdapter = new OGLAdapter(this, OGL_DEFAULT_WIDTH, OGL_DEFAULT_HEIGHT);
 
     // Layout
     ConfigLayout();
@@ -35,10 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // set background color
     QPalette pal(this->palette());
-    pal.setColor(QPalette::Window, QColor(81,196,240));
+    pal.setColor(QPalette::Window, QColor(99, 103, 106));
     this->setAutoFillBackground(true);
     this->setPalette(pal);
-
 }
 
 MainWindow::~MainWindow() {
@@ -100,33 +99,60 @@ void MainWindow::clearLoadedModelPush() {
 void MainWindow::ConfigLayout() {
     titleLabel = ui->label;
     titleSplitLine = ui->line;
+
     lineModeCheck = ui->checkBox;
     lightingCheck = ui->checkBox_2;
     renderSplitLine = ui->line_2;
+
     fileNameLabel = ui->label_2;
-    openFileButton = ui->pushButton;
     modelSizeLabel = ui->label_3;
     modelScaleDoubleSpinBox = ui->doubleSpinBox;
-    loadModelSplitLine = ui->line_3;
+    openFileButton = ui->pushButton;
     clearLoadedModelButton = ui->pushButton_2;
+    loadModelSplitLine = ui->line_3;
 
-    auto *vToolLayout = new QVBoxLayout;
-    vToolLayout->addWidget(titleLabel);
-    vToolLayout->addWidget(titleSplitLine);
-    vToolLayout->addWidget(lineModeCheck);
-    vToolLayout->addWidget(lightingCheck);
-    vToolLayout->addWidget(renderSplitLine);
-    vToolLayout->addWidget(fileNameLabel);
-    vToolLayout->addWidget(openFileButton);
+    treeGrowthControlLabel = ui->label_4;
+    performGrowthButton = ui->pushButton_3;
+    resetGrowthButton = ui->pushButton_4;
+    iterationLabel = ui->label_5;
+    iterationTimesLabel = ui->label_6;
+    treeGrowthControlSplitLine = ui->line_4;
+
+    treeGrowthParamsLabel = ui->label_7;
 
     auto *hScalingModelLayout = new QHBoxLayout;
     hScalingModelLayout->addWidget(modelSizeLabel);
     hScalingModelLayout->addWidget(modelScaleDoubleSpinBox);
 
+    auto *hIterationTimesLayout = new QHBoxLayout;
+    hIterationTimesLayout->addWidget(iterationLabel);
+    hIterationTimesLayout->addWidget(iterationTimesLabel);
+
+    auto *vToolLayout = new QVBoxLayout;
+    vToolLayout->addWidget(titleLabel);
+    vToolLayout->addWidget(titleSplitLine);
+
+    vToolLayout->addWidget(lineModeCheck);
+    vToolLayout->addWidget(lightingCheck);
+    vToolLayout->addWidget(renderSplitLine);
+
+    vToolLayout->addWidget(fileNameLabel);
     vToolLayout->addLayout(hScalingModelLayout);
-    vToolLayout->addWidget(loadModelSplitLine);
-    vToolLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
+    vToolLayout->addWidget(openFileButton);
     vToolLayout->addWidget(clearLoadedModelButton);
+    vToolLayout->addWidget(loadModelSplitLine);
+
+    vToolLayout->addWidget(treeGrowthControlLabel);
+    vToolLayout->addWidget(performGrowthButton);
+    vToolLayout->addWidget(resetGrowthButton);
+    vToolLayout->addLayout(hIterationTimesLayout);
+    vToolLayout->addWidget(treeGrowthControlSplitLine);
+
+    // TODO: add more parameters settings
+    vToolLayout->addWidget(treeGrowthParamsLabel);
+    // .....
+
+    vToolLayout->addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
     auto *vGLLayout = new QVBoxLayout;
     vGLLayout->addWidget(oglAdapter);

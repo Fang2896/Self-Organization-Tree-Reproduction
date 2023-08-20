@@ -5,6 +5,7 @@
 #ifndef MY_BASICGEOMETRY_H
 #define MY_BASICGEOMETRY_H
 
+#include "ResourceManager.h"
 #include <QOpenGLFunctions_4_3_Core>
 
 enum class Data_Type {
@@ -25,6 +26,7 @@ enum class Draw_Mode {
 class BasicGeometry {
 public:
     GLuint numVertex;
+    std::string shaderName;
 
     BasicGeometry();
     ~BasicGeometry();

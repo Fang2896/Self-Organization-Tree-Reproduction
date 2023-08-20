@@ -43,16 +43,26 @@ private:
 
     QLabel *titleLabel;
     QFrame *titleSplitLine;
+
     QCheckBox *lineModeCheck;
     QCheckBox *lightingCheck;
     QFrame *renderSplitLine;
+
     QLabel *fileNameLabel;
     QPushButton *openFileButton;
     QLabel *modelSizeLabel;
     QDoubleSpinBox *modelScaleDoubleSpinBox;
     QFrame *loadModelSplitLine;
-
     QPushButton *clearLoadedModelButton;
+
+    QLabel *treeGrowthControlLabel;
+    QPushButton *performGrowthButton;
+    QPushButton *resetGrowthButton;
+    QLabel *iterationLabel;
+    QLabel *iterationTimesLabel;
+    QFrame *treeGrowthControlSplitLine;
+
+    QLabel *treeGrowthParamsLabel;
 
     void ConfigLayout();
 

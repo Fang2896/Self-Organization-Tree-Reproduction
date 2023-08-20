@@ -16,7 +16,7 @@
 
 const QVector3D CAMERA_POSITION(0.0f, 0.1f, 3.0f);
 
-const QVector3D LIGHT_POSITION(-2.0f, 1.0f, 1.0f);
+const QVector3D LIGHT_POSITION(-3.0f, 2.0f, 2.0f);
 const QVector3D LIGHT_COLOR(1.0f, 1.0f, 1.0f);
 
 const QVector3D COORDINATE_COLOR(1.0f, 1.0f, 0.0f);
@@ -92,8 +92,10 @@ void OGLAdapter::initializeGL() {
     my_tree = std::make_unique<Tree>(environment, Point{});
 
     // iteration 10 times first
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 2; i++)
         my_tree->performGrowthIteration();
+
+    my_tree->countMetamers();
 
     my_treeSkeleton = std::make_unique<TreeSkeleton>();
     my_treeSkeleton->init(my_tree);
@@ -132,7 +134,7 @@ void OGLAdapter::initializeGL() {
     model.scale(0.1f);
     ResourceManager::getShader("light").use().setMatrix4f("model", model);
     model.setToIdentity();
-    model.scale(10.0f);
+    model.scale(60.0f);
     ResourceManager::getShader("coordinate").use().setMatrix4f("model", model);
     model.setToIdentity();
     model.translate(PLANE_POSITION);
@@ -141,7 +143,7 @@ void OGLAdapter::initializeGL() {
 
     // background setting
     core->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    core->glClearColor(0.1765f, 0.2353f, 0.3922f, 1.0f);
+    core->glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 }
 
 void OGLAdapter::resizeGL(int w, int h) {
@@ -232,6 +234,7 @@ void OGLAdapter::handleKeyReleaseEvent(QKeyEvent *event) {
         this->keys[key] = GL_FALSE;
 }
 
+// TODO: 窗口改变会导致鼠标移动很怪
 void OGLAdapter::mouseMoveEvent(QMouseEvent *event) {
     GLint xPos = event->pos().x();
     GLint yPos = event->pos().y();
