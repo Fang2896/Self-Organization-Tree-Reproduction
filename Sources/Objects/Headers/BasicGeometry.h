@@ -30,7 +30,9 @@ public:
 
     BasicGeometry();
     ~BasicGeometry();
+    // TODO: 把后面两个参数改成成员变量
     void init(const QVector<float>& data, Data_Type dataType, Draw_Mode mode);   // position, texture, normal
+    void updateVertexData(const QVector<float>& data, Data_Type dataType);
     void draw();
 
     void changeDrawMode(Draw_Mode mode) {

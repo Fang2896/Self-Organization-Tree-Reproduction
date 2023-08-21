@@ -54,7 +54,16 @@ void BasicGeometry::init(const QVector<float>& data, Data_Type dataType, Draw_Mo
     core->glBindVertexArray(0);
 }
 
-void BasicGeometry::draw(){
+void BasicGeometry::updateVertexData(const QVector<float>& data, Data_Type dataType) {
+    core->glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    core->glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW);
+    core->glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    int lineLength = dataType == Data_Type::POS_TEX_NOR ? 8 : 3;
+    this->numVertex = data.size() / lineLength;
+}
+
+void BasicGeometry::draw() {
     core->glBindVertexArray(VAO);
 
     if(drawMode == Draw_Mode::POINTS)

@@ -8,6 +8,8 @@
 #include "Types.h"
 #include "MarkerSet.h"
 
+#include <QDateTime>
+
 
 class Environment {
 private:
@@ -43,9 +45,11 @@ public:
         return value;
     }
 
-    void resetEnvironment(const QRandomGenerator& rGenerator) {
-        randomGenerator = rGenerator;
+    void resetEnvironment() {
+        auto seedNow = static_cast<qint32>(QDateTime::currentMSecsSinceEpoch() % 2147483647);
+        randomGenerator.seed(seedNow);
         nextBudId = 1;
+        markerSet.resetAllocations();
     }
 };
 

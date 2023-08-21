@@ -86,13 +86,8 @@ void OGLAdapter::initializeGL() {
     markerSet = std::make_unique<MarkerSet>(*randomGenerator, 2.0f, 10, 1000 * 1000);
     environment = std::make_unique<Environment>(*randomGenerator, *markerSet);
     my_tree = std::make_unique<Tree>(*environment, Point{});
-
     my_treeSkeleton = std::make_unique<TreeSkeleton>();
-
-    // iteration n times first
-    for(int i = 0; i < 3; i++)
-        my_tree->performGrowthIteration();
-    my_treeSkeleton->updateVertexData(my_tree);
+    my_treeSkeleton->init(my_tree);
 
     // load shader
     ResourceManager::loadShader("light",
@@ -294,18 +289,10 @@ void OGLAdapter::handleInput(GLfloat dt) {
 // Tree
 void OGLAdapter::performTreeGrowth() {
     my_tree->performGrowthIteration();
-
-    my_treeSkeleton = std::make_unique<TreeSkeleton>();
     my_treeSkeleton->updateVertexData(my_tree);
 }
 
-void OGLAdapter::resetTreeGrowth() {
-    seedNow = static_cast<qint32>(QDateTime::currentMSecsSinceEpoch() % 2147483647);
-    randomGenerator = std::make_unique<QRandomGenerator>(seedNow);
-    // TODO: markerSet的参数也可以进行控制
-    markerSet = std::make_unique<MarkerSet>(*randomGenerator, 2.0f, 10, 1000 * 1000);
-    environment = std::make_unique<Environment>(*randomGenerator, *markerSet);
-    my_tree = std::make_unique<Tree>(*environment, Point{});
-    my_treeSkeleton = std::make_unique<TreeSkeleton>();
+void OGLAdapter::resetTreeGrowth() const {
+    my_tree->resetGrowth(Point{});
+    my_treeSkeleton->updateVertexData(my_tree);
 }
-

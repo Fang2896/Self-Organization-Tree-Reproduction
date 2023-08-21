@@ -39,7 +39,7 @@ public:
     void clearLoadedModel() const;
 
     void performTreeGrowth();
-    void resetTreeGrowth();
+    void resetTreeGrowth() const;
 
 
     // Object to Rendering

@@ -18,10 +18,11 @@ public:
     TreeSkeleton() : BasicGeometry() {}
     ~TreeSkeleton() = default;
 
+    void init(const std::unique_ptr<Tree> &tree);
     void updateVertexData(const std::unique_ptr<Tree> &tree);
 
 private:
-    QVector<float> vertices;
+    QVector<float> vertices{};
 
 };
 

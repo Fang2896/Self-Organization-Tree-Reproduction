@@ -7,9 +7,19 @@
 #include <QDebug>
 
 
-Tree::Tree(Environment &environment, Point seedlingPosition)
+Tree::Tree(Environment environment, Point seedlingPosition)
     : environment(environment) {
     const auto end = seedlingPosition + Point(0.0f, 1.0f * Environment::MetamerBaseLength, 0.0f);
+    root = std::make_unique<Metamer>(environment, seedlingPosition, end);
+}
+
+void Tree::resetGrowth(Point seedlingPosition) {
+    tropismGrowthDirectionWeight = 0.5f;
+
+    environment.resetEnvironment();
+
+    const auto end = seedlingPosition + Point(0.0f, 1.0f * Environment::MetamerBaseLength, 0.0f);
+    root.reset();
     root = std::make_unique<Metamer>(environment, seedlingPosition, end);
 }
 
@@ -52,7 +62,7 @@ void Tree::performGrowthIteration() {
     performGrowthIteration(root);
     // 4. Shed branches (not implemented).
 
-    // 5. Update internode width for all inter nodes.
+    // 5. Update internode width for all internodes.
     updateInternodeWidths(root);
     tropismGrowthDirectionWeight *= tropismGrowthDirectionWeightAttenuation;
 
@@ -223,7 +233,5 @@ void Tree::updateInternodeWidths(std::unique_ptr<Metamer> &metamer) {
     metamer->width = std::pow(total, 1.0f / pipeModelExponent);
 }
 
-void Tree::resetGrowth() {
-    root.reset();
-}
+
 

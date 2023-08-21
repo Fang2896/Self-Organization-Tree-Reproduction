@@ -19,18 +19,18 @@ public:
     Point begin{};
     Point end{};
 
-    Vector axillaryDirection;
+    Vector axillaryDirection{};
 
     bool hasLeaf = false;
     float width = 0.0f;
 
     std::unique_ptr<Metamer> axillary;
     BudId axillaryId{};
-    U64 axillaryCount;
+    U64 axillaryCount{};
 
     std::unique_ptr<Metamer> terminal;
     BudId terminalId{};
-    U64 terminalCount;
+    U64 terminalCount{};
 
     float light = 0.0f;
 
